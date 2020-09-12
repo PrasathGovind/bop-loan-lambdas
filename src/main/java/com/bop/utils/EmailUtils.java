@@ -13,7 +13,7 @@ import javax.mail.internet.MimeMessage;
 public class EmailUtils {
 		
 	 String FROM = "govindarajuprasath@gmail.com";
-     String FROMNAME = "Mr.Prasath, Bank of Prazy";
+     String FROMNAME = "Bank of Prazy";
      String TO = "itsmeprazy@gmail.com";
      String SMTP_USERNAME = StringUtils.getSESaKey();
      String SMTP_PASSWORD = StringUtils.getSESsKey();
