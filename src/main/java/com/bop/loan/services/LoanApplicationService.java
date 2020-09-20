@@ -60,9 +60,14 @@ public class LoanApplicationService {
 		applyLoanResponse.setUser(new User());
 		applyLoanResponse.getUser().setMobileNumber(loanRequest.getMobileNumber());
 		
-		logger.log("Exit LoanApplicationService.applyForALoan.");
+		try {
+			emailUtils.sendEmail(loanRequest.getEmailId());
+			emailUtils.postEmailtoSQS(loanRequest.getEmailId());
+		} catch (Exception ex) {
+			logger.log("Exception thrown while sending Loan Procurement Email! ex="+ex.getMessage());
+		}
 		
-		emailUtils.sendEmail(loanRequest.getEmailId());
+		logger.log("Exit LoanApplicationService.applyForALoan.");
 
 		return applyLoanResponse;
 	}
