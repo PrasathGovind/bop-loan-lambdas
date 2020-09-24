@@ -12,8 +12,6 @@ import com.bop.loan.beans.Loan;
 import com.bop.loan.beans.LoanRequest;
 import com.bop.loan.beans.LoanRequestDTO;
 import com.bop.loan.beans.User;
-import com.bop.loan.exceptions.APIException;
-import com.bop.loan.exceptions.ErrorConstants;
 import com.bop.utils.EmailUtils;
 
 public class LoanApplicationService {
@@ -29,17 +27,17 @@ public class LoanApplicationService {
 		logger.log("Inside LoanApplicationService.applyForALoan ....");
 		
 		if(loanRequest==null) {
-			throw new APIException(ErrorConstants.LOAN_APPLICATION_REJECTED,"Details are missing in Loan Application!");
+			throw new RuntimeException("[BankOfPrazyException] Details are missing in Loan Application!");
+			//throw new APIException(ErrorConstants.LOAN_APPLICATION_REJECTED,"Details are missing in Loan Application!");
 		}
 		
 		if(loanRequest!=null && (loanRequest.getMobileNumber()==null || loanRequest.getMobileNumber().isEmpty()
 				|| loanRequest.getEmailId()==null || loanRequest.getEmailId().isEmpty())) {
-			throw new RuntimeException("Mandatory detail(s) such as mobile number/email is(are) missing in Loan Application!");
-			//throw new APIException(ErrorConstants.LOAN_APPLICATION_REJECTED,"Mandatory detail(s) such as mobile number/email is(are) missing in Loan Application!");
+			throw new RuntimeException("[BankOfPrazyException] Mandatory detail(s) such as mobile number/email is(are) missing in Loan Application!");
 		}
 		
 		if(loanRequest!=null && (loanRequest.getLoanType()==null || loanRequest.getLoanType().isEmpty())) {
-			throw new APIException(ErrorConstants.LOAN_APPLICATION_REJECTED,"Loan Type must be mentioned!");
+			throw new RuntimeException("[BankOfPrazyException] Loan Type must be mentioned!");
 		}
 		
 		ApplyLoanResponse applyLoanResponse = new ApplyLoanResponse();
@@ -63,7 +61,7 @@ public class LoanApplicationService {
 		
 		try {
 			emailUtils.sendEmail(loanRequest.getEmailId());
-			emailUtils.postEmailtoSQS(loanRequest.getEmailId());
+			emailUtils.postEmailtoSQS();
 		} catch (Exception ex) {
 			logger.log("Exception thrown while sending Loan Procurement Email! ex="+ex.getMessage());
 		}
