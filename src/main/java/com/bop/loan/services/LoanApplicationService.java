@@ -34,7 +34,8 @@ public class LoanApplicationService {
 		
 		if(loanRequest!=null && (loanRequest.getMobileNumber()==null || loanRequest.getMobileNumber().isEmpty()
 				|| loanRequest.getEmailId()==null || loanRequest.getEmailId().isEmpty())) {
-			throw new APIException(ErrorConstants.LOAN_APPLICATION_REJECTED,"Mandatory details are missing in Loan Application!");
+			throw new RuntimeException("Mandatory detail(s) such as mobile number/email is(are) missing in Loan Application!");
+			//throw new APIException(ErrorConstants.LOAN_APPLICATION_REJECTED,"Mandatory detail(s) such as mobile number/email is(are) missing in Loan Application!");
 		}
 		
 		if(loanRequest!=null && (loanRequest.getLoanType()==null || loanRequest.getLoanType().isEmpty())) {
