@@ -31,12 +31,12 @@ public class LoanApplicationService {
 			//throw new APIException(ErrorConstants.LOAN_APPLICATION_REJECTED,"Details are missing in Loan Application!");
 		}
 		
-		if(loanRequest!=null && (loanRequest.getMobileNumber()==null || loanRequest.getMobileNumber().isEmpty()
-				|| loanRequest.getEmailId()==null || loanRequest.getEmailId().isEmpty())) {
+		if(loanRequest.getMobileNumber()==null || loanRequest.getMobileNumber().isEmpty()
+				|| loanRequest.getEmailId()==null || loanRequest.getEmailId().isEmpty()) {
 			throw new RuntimeException("[BankOfPrazyException] Mandatory detail(s) such as mobile number/email is(are) missing in Loan Application!");
 		}
 		
-		if(loanRequest!=null && (loanRequest.getLoanType()==null || loanRequest.getLoanType().isEmpty())) {
+		if(loanRequest.getLoanType()==null || loanRequest.getLoanType().isEmpty()){
 			throw new RuntimeException("[BankOfPrazyException] Loan Type must be mentioned!");
 		}
 		
