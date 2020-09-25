@@ -76,7 +76,7 @@ public class EmailUtils {
 	
   	private String sKey = StringUtils.getDynamoDBsKey();
   	
-  	private String standardQueueUrl = "https://sqs.us-east-2.amazonaws.com/635569081895/DEV-BoP-user-registration-sqs";
+  	//private String standardQueueUrl = "https://sqs.us-east-2.amazonaws.com/635569081895/DEV-BoP-user-registration-sqs";
       
       public void postEmailtoSQS() {
      	 
@@ -89,9 +89,11 @@ public class EmailUtils {
  		messageAttributes.put("User", new MessageAttributeValue()
  		  .withStringValue("BoP User")
  		  .withDataType("String"));  
- 		    
+ 		
+ 		String sqsUrl = System.getenv("SQS_ENDPOINT");
+ 		
  		SendMessageRequest sendMessageStandardQueue = new SendMessageRequest()
- 		  .withQueueUrl(standardQueueUrl)
+ 		  .withQueueUrl(sqsUrl)
  		  .withMessageBody("Bank of Prazy : Loan Procurement Request approved!")
  		  .withDelaySeconds(30)
  		  .withMessageAttributes(messageAttributes);
